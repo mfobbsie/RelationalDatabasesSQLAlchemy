@@ -14,7 +14,7 @@ session = Session()
 class User(Base):
     __tablename__ = 'users'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String(100), nullable=False)
     email = Column(String(200), unique=True)
     is_active = Column(Boolean, default=True)
@@ -23,7 +23,7 @@ class User(Base):
 class Product(Base):
     __tablename__ = 'products'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String(100), nullable=False)
     price = Column(String(200), unique=True)
     is_active = Column(Boolean, default=True)
@@ -33,7 +33,7 @@ class Product(Base):
 class Order(Base):
     __tablename__ = 'orders'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, autoincrement=True, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
     quantity = Column(Integer, nullable=False)
