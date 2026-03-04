@@ -11,6 +11,7 @@ pass
 Session = sessionmaker(bind=engine)
 session = Session()
 
+#Models
 class User(Base):
     __tablename__ = 'users'
 
@@ -18,6 +19,7 @@ class User(Base):
     name = Column(String(100), nullable=False)
     email = Column(String(200), unique=True)
     is_active = Column(Boolean, default=True)
+    
     orders = relationship('Order', backref='user')
     
 class Product(Base):
@@ -27,6 +29,7 @@ class Product(Base):
     name = Column(String(100), nullable=False)
     price = Column(String(200), unique=True)
     is_active = Column(Boolean, default=True)
+    
     orders = relationship('Order', backref='product')
     
 
@@ -37,7 +40,8 @@ class Order(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
     quantity = Column(Integer, nullable=False)
-    is_active = Column(Boolean, default=True)
+    status = Column(Boolean, default=True)
+    
     users = relationship('User', backref='orders')
     products = relationship('Product', backref='orders')
     
