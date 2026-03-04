@@ -18,6 +18,7 @@ class User(Base):
     name = Column(String(100), nullable=False)
     email = Column(String(200), unique=True)
     is_active = Column(Boolean, default=True)
+    orders = relationship('Order', backref='user')
     
 class Product(Base):
     __tablename__ = 'products'
@@ -26,6 +27,7 @@ class Product(Base):
     name = Column(String(100), nullable=False)
     price = Column(String(200), unique=True)
     is_active = Column(Boolean, default=True)
+    orders = relationship('Order', backref='product')
     
 
 class Order(Base):
@@ -36,6 +38,8 @@ class Order(Base):
     product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
     quantity = Column(Integer, nullable=False)
     is_active = Column(Boolean, default=True)
+    users = relationship('User', backref='orders')
+    products = relationship('Product', backref='orders')
     
     
 Base.metadata.create_all(engine)
